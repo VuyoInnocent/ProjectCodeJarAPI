@@ -20,6 +20,7 @@ namespace ProjectCodeJarAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
+
                 });
 
             migrationBuilder.CreateTable(
