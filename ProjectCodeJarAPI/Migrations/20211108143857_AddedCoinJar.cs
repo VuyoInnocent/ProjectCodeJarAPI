@@ -21,6 +21,7 @@ namespace ProjectCodeJarAPI.Migrations
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
 
+
                 });
 
             migrationBuilder.CreateTable(
