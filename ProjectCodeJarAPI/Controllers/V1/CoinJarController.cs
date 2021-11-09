@@ -5,6 +5,7 @@ using ProjectCodeJarAPI.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace ProjectCodeJarAPI.Controllers.V1
@@ -24,24 +25,18 @@ namespace ProjectCodeJarAPI.Controllers.V1
             var addCoin = new Coin { Volume = coin.Volume, Amount = coin.Amount };
             _coinJar.AddCoin(addCoin);
 
-
             var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
             var locationUri = baseUrl + "/" + ApiRoutes.CoinJar.AddCoin + "/" + addCoin.Volume.ToString();
-            //Shows how user can rtetrive volume data using this Url
             return Created(locationUri, addCoin);
         }
 
         [HttpGet(ApiRoutes.CoinJar.GetTotalAmout)]
+        [ProducesResponseType(typeof(decimal), (int)HttpStatusCode.OK)]
         public IActionResult GetTotalAmount()
         {
             var totalAmount = _coinJar.GetTotalAmount();
 
-            if (totalAmount != 0.00m)
-            {
-                return Ok();
-            }
-
-           return NotFound();
+            return Ok(totalAmount);
         }
 
         [HttpPut(ApiRoutes.CoinJar.Reset)]
@@ -53,13 +48,5 @@ namespace ProjectCodeJarAPI.Controllers.V1
            
         }
 
-        //[HttpDelete(ApiRoutes.CoinJar.Reset)]
-        //public IActionResult ResetCount2()
-        //{
-        //    _coinJar.Reset();
-
-        //    return Ok();
-
-        //}
     }
 }
