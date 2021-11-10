@@ -10,31 +10,26 @@ namespace ProjectCodeJarAPI.Services
 {
     public class CoinJar : ICoinJar
     {
-        private readonly DataContext _dataContext;
-
-        public int Id { get; set; }
+        [Key]
         public decimal TotalVolume { get; set; }
         public decimal UsedVolume { get; set; }
         public decimal CoinsTotalAmount { get; set; }
-        
+
+        private readonly DataContext _dataContext;
 
         public CoinJar(DataContext dataContext)
         {
             _dataContext = dataContext;
-
+        }
+        public CoinJar()
+        {
             TotalVolume = 42m;
             UsedVolume = 0m;
             CoinsTotalAmount = 0.00m;
         }
-        public CoinJar()
-        {
-        }
 
         public void AddCoin(ICoin coin)
         {
-            //if (coin is null)
-            //    Console.WriteLine();
-
             var CoinJarList = GetCoinJarList();
             if (!CoinJarList.Any())
             {
@@ -58,13 +53,17 @@ namespace ProjectCodeJarAPI.Services
                 //casting ICoin
                 _dataContext.Coin.Add((Coin)coin);
             }
-
             _dataContext.SaveChanges();
-
         }
 
         public decimal GetTotalAmount()
         {
+            if (_dataContext is null)
+                return 0m;
+
+            if (_dataContext.CoinJar.SingleOrDefault(x => x.TotalVolume == 42m) is null)
+                return 0m;
+
             return _dataContext.CoinJar.SingleOrDefault(x => x.TotalVolume == 42m).CoinsTotalAmount;
         }
 

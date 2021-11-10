@@ -10,16 +10,14 @@ namespace ProjectCodeJarAPI.Services
 {
     public interface ICoinJar
     {
-        //CoinJar properties
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        int Id { get; set; }
+        void AddCoin(ICoin coin);
+        decimal GetTotalAmount();
+        void Reset();
+
         decimal TotalVolume { get; set; }
         decimal UsedVolume { get; set; }
         decimal CoinsTotalAmount { get; set; }
 
-        void AddCoin(ICoin coin);
-        decimal GetTotalAmount();
-        void Reset();
+        
     }
 }

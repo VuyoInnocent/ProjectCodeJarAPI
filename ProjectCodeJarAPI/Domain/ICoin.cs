@@ -9,9 +9,6 @@ namespace ProjectCodeJarAPI.Domain
 {
     public interface ICoin
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        int Id { get; set; }
         decimal Amount { get; set; }
         decimal Volume { get; set; }
     }
