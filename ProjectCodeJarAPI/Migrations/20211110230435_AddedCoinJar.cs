@@ -60,19 +60,6 @@ namespace ProjectCodeJarAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CoinJar",
-                columns: table => new
-                {
-                    TotalVolume = table.Column<decimal>(nullable: false),
-                    UsedVolume = table.Column<decimal>(nullable: false),
-                    CoinsTotalAmount = table.Column<decimal>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CoinJar", x => x.TotalVolume);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -237,9 +224,6 @@ namespace ProjectCodeJarAPI.Migrations
 
             migrationBuilder.DropTable(
                 name: "Coin");
-
-            migrationBuilder.DropTable(
-                name: "CoinJar");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

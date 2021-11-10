@@ -17,7 +17,7 @@ namespace ProjectCodeJarAPI.Tests
 
         public CoinJarTests()
         {
-            _coinJar = new CoinJar();
+           // _coinJar = new CoinJar();
             _coin = new Coin();
         }
 

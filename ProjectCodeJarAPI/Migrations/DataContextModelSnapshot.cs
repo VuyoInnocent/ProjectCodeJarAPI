@@ -195,19 +195,6 @@ namespace ProjectCodeJarAPI.Migrations
                     b.ToTable("Coin");
                 });
 
-            modelBuilder.Entity("ProjectCodeJarAPI.Services.CoinJar", b =>
-                {
-                    b.Property<decimal>("TotalVolume");
-
-                    b.Property<decimal>("CoinsTotalAmount");
-
-                    b.Property<decimal>("UsedVolume");
-
-                    b.HasKey("TotalVolume");
-
-                    b.ToTable("CoinJar");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")

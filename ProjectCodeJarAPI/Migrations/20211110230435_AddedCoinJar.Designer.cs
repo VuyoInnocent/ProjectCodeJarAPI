@@ -10,7 +10,7 @@ using ProjectCodeJarAPI.Data;
 namespace ProjectCodeJarAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20211109214756_AddedCoinJar")]
+    [Migration("20211110230435_AddedCoinJar")]
     partial class AddedCoinJar
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -195,19 +195,6 @@ namespace ProjectCodeJarAPI.Migrations
                     b.HasKey("Amount");
 
                     b.ToTable("Coin");
-                });
-
-            modelBuilder.Entity("ProjectCodeJarAPI.Services.CoinJar", b =>
-                {
-                    b.Property<decimal>("TotalVolume");
-
-                    b.Property<decimal>("CoinsTotalAmount");
-
-                    b.Property<decimal>("UsedVolume");
-
-                    b.HasKey("TotalVolume");
-
-                    b.ToTable("CoinJar");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

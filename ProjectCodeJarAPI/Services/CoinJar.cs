@@ -1,84 +1,116 @@
 ﻿using ProjectCodeJarAPI.Data;
 using ProjectCodeJarAPI.Domain;
+using ProjectCodeJarAPI.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ProjectCodeJarAPI.Services
 {
     public class CoinJar : ICoinJar
     {
-        [Key]
-        public decimal TotalVolume { get; set; }
-        public decimal UsedVolume { get; set; }
-        public decimal CoinsTotalAmount { get; set; }
+        private readonly ICoinRepository _coinRepository;
 
-        private readonly DataContext _dataContext;
-
-        public CoinJar(DataContext dataContext)
+        public CoinJar(ICoinRepository coinRepository)
         {
-            _dataContext = dataContext;
-        }
-        public CoinJar()
-        {
-            TotalVolume = 42m;
-            UsedVolume = 0m;
-            CoinsTotalAmount = 0.00m;
+            _coinRepository = coinRepository;
         }
 
         public void AddCoin(ICoin coin)
         {
-            var CoinJarList = GetCoinJarList();
-            if (!CoinJarList.Any())
-            {
-                var addCoinJar = new CoinJar { TotalVolume = 42m,
-                                               UsedVolume = coin.Volume, 
-                                               CoinsTotalAmount = coin.Amount };
+            decimal usedVolume = 0;
+            decimal totalVolume = 42m;
 
-                TotalVolume = addCoinJar.TotalVolume;
+            if (coin == null)
+                throw new ArgumentNullException("Coin required.");
 
-                _dataContext.CoinJar.Add(addCoinJar);
-            }
-            else
+            var newCoin = new Coin
             {
-                var coinJarResult = _dataContext.CoinJar.SingleOrDefault(x => x.TotalVolume == 42m);
-                TotalVolume = coinJarResult.TotalVolume;
-                coinJarResult.UsedVolume += coin.Volume;
-                coinJarResult.CoinsTotalAmount += coin.Amount;
+                Amount = coin.Amount,
+                Volume = coin.Volume
+            };
+
+            var coinsInJar = _coinRepository.GetAll();
+
+            foreach (var coins in coinsInJar)
+            {
+                usedVolume += coins.Volume;
             }
-            if (coin != null && coin.Volume < TotalVolume)
-            { 
-                //casting ICoin
-                _dataContext.Coin.Add((Coin)coin);
+
+            if (newCoin.Volume < totalVolume && usedVolume < totalVolume)
+            {
+                _coinRepository.SaveAsync(newCoin);
             }
-            _dataContext.SaveChanges();
+            
+
+            //if (_dataContext.CoinJarTotals.SingleOrDefault(x => x.TotalVolume == 42m) is null || _dataContext is null)
+            //{
+            //    var _coinJarTotals = new CoinJarTotals
+            //    {
+            //        TotalVolume = 42m,
+            //        UsedVolume = coin.Volume,
+            //        CoinsTotalAmount = coin.Amount
+            //    };
+
+            //    _coinJarTotals.TotalVolume = addCoinJar.TotalVolume;
+
+            //    //_dataContext.CoinJarTotals.Add(addCoinJar);
+            //}
+            //else
+            //{
+            //    var coinJarResult = _dataContext.CoinJarTotals.SingleOrDefault(x => x.TotalVolume == 42m);
+            //    _coinJarTotals.TotalVolume = coinJarResult.TotalVolume;
+            //    coinJarResult.UsedVolume += coin.Volume;
+            //    coinJarResult.CoinsTotalAmount += coin.Amount;
+            //}
+            //if (coin != null && coin.Volume < TotalVolume)
+            //{ 
+            //    //casting ICoin
+            //    _dataContext.Coin.Add((Coin)coin);
+            //}
+            //_dataContext.SaveChanges();
         }
 
         public decimal GetTotalAmount()
         {
-            if (_dataContext is null)
-                return 0m;
+            decimal totalAmount = 0;
 
-            if (_dataContext.CoinJar.SingleOrDefault(x => x.TotalVolume == 42m) is null)
-                return 0m;
+            var coins = _coinRepository.GetAll();
 
-            return _dataContext.CoinJar.SingleOrDefault(x => x.TotalVolume == 42m).CoinsTotalAmount;
+            foreach (var coin in coins)
+            {
+                totalAmount += coin.Amount;
+            }
+
+            return totalAmount;
+
+
+
+            //if (_dataContext is null)
+            //    return 0m;
+
+            //if (_dataContext.CoinJarTotals.SingleOrDefault(x => x.TotalVolume == 42m) is null)
+            //    return 0m;
+
+            //return _dataContext.CoinJarTotals.SingleOrDefault(x => x.TotalVolume == 42m).CoinsTotalAmount;
         }
 
         public void Reset()
         {
-            var coinJarResult = _dataContext.CoinJar.SingleOrDefault(x => x.TotalVolume == 42m);
-            coinJarResult.CoinsTotalAmount = 0.00m;
-            coinJarResult.UsedVolume = 0m;
+            
+                _coinRepository.DeleteAsync();
+            
+            
 
-            _dataContext.SaveChanges();
+
+            //var coinJarResult = _dataContext.CoinJarTotals.SingleOrDefault(x => x.TotalVolume == 42m);
+            //coinJarResult.CoinsTotalAmount = 0.00m;
+            //coinJarResult.UsedVolume = 0m;
+
+            //_dataContext.SaveChanges();
         }
 
-        public List<CoinJar> GetCoinJarList()
-        {
-            return _dataContext.CoinJar.ToList(); 
-        }
+        //public List<CoinJar> GetCoinJarList()
+        //{
+        //    return _dataContext.CoinJarTotals.ToList(); 
+        //}
     }
 }

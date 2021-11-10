@@ -1,11 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ProjectCodeJarAPI.Domain;
-using ProjectCodeJarAPI.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ProjectCodeJarAPI.Data
 {
@@ -16,6 +11,6 @@ namespace ProjectCodeJarAPI.Data
         {
         }
         public DbSet<Coin> Coin { get; set; }
-        public DbSet<CoinJar> CoinJar { get; set; }
+
     }
 }

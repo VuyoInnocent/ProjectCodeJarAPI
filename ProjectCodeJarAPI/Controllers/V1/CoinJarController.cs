@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjectCodeJarAPI.Contracts;
 using ProjectCodeJarAPI.Domain;
+using ProjectCodeJarAPI.Interfaces;
 using ProjectCodeJarAPI.Services;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ProjectCodeJarAPI.Controllers.V1
 {
-    public class CoinJarController : Controller
+    public class CoinJarController : ControllerBase
     {
         private readonly ICoinJar _coinJar;
 
@@ -39,7 +40,7 @@ namespace ProjectCodeJarAPI.Controllers.V1
             return Ok(totalAmount);
         }
 
-        [HttpPut(ApiRoutes.CoinJar.Reset)]
+        [HttpDelete(ApiRoutes.CoinJar.Reset)]
         public IActionResult ResetCount()
         {
             _coinJar.Reset();
