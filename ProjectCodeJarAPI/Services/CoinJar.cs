@@ -16,7 +16,7 @@ namespace ProjectCodeJarAPI.Services
 
         public void AddCoin(ICoin coin)
         {
-            decimal usedVolume = 0;
+            decimal usedVolume = 0m;
             decimal totalVolume = 42m;
 
             if (coin == null)
@@ -82,35 +82,12 @@ namespace ProjectCodeJarAPI.Services
 
             return totalAmount;
 
-
-
-            //if (_dataContext is null)
-            //    return 0m;
-
-            //if (_dataContext.CoinJarTotals.SingleOrDefault(x => x.TotalVolume == 42m) is null)
-            //    return 0m;
-
-            //return _dataContext.CoinJarTotals.SingleOrDefault(x => x.TotalVolume == 42m).CoinsTotalAmount;
         }
 
         public void Reset()
         {
-            
                 _coinRepository.DeleteAsync();
             
-            
-
-
-            //var coinJarResult = _dataContext.CoinJarTotals.SingleOrDefault(x => x.TotalVolume == 42m);
-            //coinJarResult.CoinsTotalAmount = 0.00m;
-            //coinJarResult.UsedVolume = 0m;
-
-            //_dataContext.SaveChanges();
         }
-
-        //public List<CoinJar> GetCoinJarList()
-        //{
-        //    return _dataContext.CoinJarTotals.ToList(); 
-        //}
     }
 }
