@@ -186,32 +186,24 @@ namespace ProjectCodeJarAPI.Migrations
 
             modelBuilder.Entity("ProjectCodeJarAPI.Domain.Coin", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<decimal>("Amount");
 
                     b.Property<decimal>("Volume");
 
-                    b.HasKey("Id");
+                    b.HasKey("Amount");
 
                     b.ToTable("Coin");
                 });
 
             modelBuilder.Entity("ProjectCodeJarAPI.Services.CoinJar", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<decimal>("TotalVolume");
 
                     b.Property<decimal>("CoinsTotalAmount");
 
-                    b.Property<decimal>("TotalVolume");
-
                     b.Property<decimal>("UsedVolume");
 
-                    b.HasKey("Id");
+                    b.HasKey("TotalVolume");
 
                     b.ToTable("CoinJar");
                 });

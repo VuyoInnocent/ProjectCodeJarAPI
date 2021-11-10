@@ -8,7 +8,7 @@ namespace ProjectCodeJarAPI.Domain
 {
     public class Coin : ICoin
     {
-        public int Id { get; set; }
+        [Key]
         public decimal Amount { get; set; }
         public decimal Volume { get; set; }
         

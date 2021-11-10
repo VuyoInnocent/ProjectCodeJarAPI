@@ -22,7 +22,7 @@ namespace ProjectCodeJarAPI.Controllers.V1
         [HttpPost(ApiRoutes.CoinJar.AddCoin)]
         public IActionResult AddCoin([FromBody] Coin coin)
         {
-            var addCoin = new Coin { Volume = coin.Volume, Amount = coin.Amount };
+            Coin addCoin = new Coin { Volume = coin.Volume, Amount = coin.Amount };
             _coinJar.AddCoin(addCoin);
 
             var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";

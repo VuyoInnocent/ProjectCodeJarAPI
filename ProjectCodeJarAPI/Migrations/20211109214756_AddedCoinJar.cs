@@ -51,29 +51,25 @@ namespace ProjectCodeJarAPI.Migrations
                 name: "Coin",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Amount = table.Column<decimal>(nullable: false),
                     Volume = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Coin", x => x.Id);
+                    table.PrimaryKey("PK_Coin", x => x.Amount);
                 });
 
             migrationBuilder.CreateTable(
                 name: "CoinJar",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     TotalVolume = table.Column<decimal>(nullable: false),
                     UsedVolume = table.Column<decimal>(nullable: false),
                     CoinsTotalAmount = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CoinJar", x => x.Id);
+                    table.PrimaryKey("PK_CoinJar", x => x.TotalVolume);
                 });
 
             migrationBuilder.CreateTable(

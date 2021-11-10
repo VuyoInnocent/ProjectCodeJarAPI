@@ -16,7 +16,6 @@ namespace ProjectCodeJarAPI.Installers
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             //Configure the services for swagger to work
-            //Add Swagger
             services.AddSwaggerGen(x =>
             {
                 x.SwaggerDoc("v1", new Info { Title = "CoinJar API", Version = "v1" });
